@@ -18,7 +18,7 @@ public class Conexao {
 
 
     Connection con;
-    String url = "jdbc:mysql://127.0.0.1/bd_erp";
+    String url = "jdbc:mysql://localhost:8080/teste";
     String driver = "com.mysql.jdbc.Driver";
     String user = "root";
     String password = "";

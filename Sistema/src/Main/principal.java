@@ -5,12 +5,15 @@
  */
 package Main;
 
+import Conexao.Conexao;
+
 /**
  *
  * @author Master
  */
 public class principal {
     public static void main(String[] args) {
-        
+        Conexao con = new Conexao();
+        con.conectar();
     }
 }
