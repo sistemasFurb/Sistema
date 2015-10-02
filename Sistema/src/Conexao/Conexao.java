@@ -6,10 +6,47 @@ package Conexao;
  * and open the template in the editor.
  */
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author Master
  */
 public class Conexao {
-    
+
+
+    Connection con;
+    String url = "jdbc:mysql://127.0.0.1/bd_erp";
+    String driver = "com.mysql.jdbc.Driver";
+    String user = "root";
+    String password = "";
+
+
+    public Conexao() {
+    }
+
+    public Connection conectar(){
+        try {
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, user, password);
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+            System.out.println("Não foi possível encontrar o Driver!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Não foi possível conectar ao banco!");
+        }
+        return con;
+    }
+
+    public void desconectar(){
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
