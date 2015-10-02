@@ -9,25 +9,25 @@ package Conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Locale;
 
 /**
  *
  * @author Master
  */
 public class Conexao {
-
-
+    
     Connection con;
-    String url = "jdbc:mysql://localhost:8080/teste";
+    String banco = "teste";
+    String url = "jdbc:mysql://localhost/"+this.banco;
     String driver = "com.mysql.jdbc.Driver";
     String user = "root";
     String password = "";
+    
+    public Conexao() {}
 
-
-    public Conexao() {
-    }
-
-    public Connection conectar(){
+    public void conectar(){
         try {
             Class.forName(driver);
             con = DriverManager.getConnection(url, user, password);
@@ -37,8 +37,20 @@ public class Conexao {
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("Não foi possível conectar ao banco!");
+        } catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("Não foi possível conectar!");
         }
-        return con;
+    }
+    
+    public void inserir(String sql){
+        try {
+            Statement s = this.con.createStatement();
+            int r = s.executeUpdate(sql);           
+        }catch (Exception e) {
+            System.out.println("Erro" + e.getMessage());
+        }
+
     }
 
     public void desconectar(){
