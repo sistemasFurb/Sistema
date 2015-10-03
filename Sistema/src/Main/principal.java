@@ -17,5 +17,7 @@ public class principal {
         con.conectar();
         con.inserir("INSERT INTO CENTRO_FORNECEDOR(CD_CENTRO_FORNEC, DS_CENTRO_FORNEC)"+
                     "VALUES (1,'Teste')");
+        con.inserir("INSERT INTO CENTRO_FORNECEDOR(CD_CENTRO_FORNEC, DS_CENTRO_FORNEC)"+
+                    "VALUES (3,'Teste')");
     }
 }
