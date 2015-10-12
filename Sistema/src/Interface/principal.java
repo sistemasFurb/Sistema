@@ -28,7 +28,6 @@ public class principal extends javax.swing.JFrame {
         jPanel4.setVisible(false);
         jPanel5.setVisible(false);
         jPanel6.setVisible(false);
-        jPanel7.setVisible(false);
         jLabel11.setVisible(false);
         jfiltro5.setVisible(false);
         jfiltro10.setVisible(false);
@@ -572,7 +571,9 @@ public class principal extends javax.swing.JFrame {
               hashh.put("qtdandares",txtqtdandar.getText());
               hashh.put("metragemandar", txtqtdaptoandar.getText());
            }
-            
+           
+           hashh.put("tempoobra", jtempoobra.getText());
+           
            Base base = new Base(hashh, this.con);
            base.inicializaTCidade();
            
