@@ -5,7 +5,10 @@
  */
 package Main;
 
+import Classes.Base;
 import Conexao.Conexao;
+import Threads.Tcidade;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,11 +16,10 @@ import Conexao.Conexao;
  */
 public class principal {
     public static void main(String[] args) {
-        Conexao con = new Conexao();
-        con.conectar();
-        con.inserir("INSERT INTO CENTRO_FORNECEDOR(CD_CENTRO_FORNEC, DS_CENTRO_FORNEC)"+
-                    "VALUES (1,'Teste')");
-        con.inserir("INSERT INTO CENTRO_FORNECEDOR(CD_CENTRO_FORNEC, DS_CENTRO_FORNEC)"+
-                    "VALUES (3,'Teste')");
+        Conexao conexao = new Conexao();
+        conexao.conectar();
+        Base base = new Base(null, conexao);
+        
+        base.inicializaTCidade();
     }
 }

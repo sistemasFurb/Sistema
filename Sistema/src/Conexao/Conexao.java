@@ -8,8 +8,10 @@ package Conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -19,7 +21,7 @@ import java.util.Locale;
 public class Conexao {
     
     Connection con;
-    String banco = "teste";
+    String banco = "analiseinvestimento";
     String url = "jdbc:mysql://localhost/"+this.banco;
     String driver = "com.mysql.jdbc.Driver";
     String user = "root";
@@ -50,7 +52,23 @@ public class Conexao {
         }catch (Exception e) {
             System.out.println("Erro" + e.getMessage());
         }
-
+    }
+    
+    public void select(String sql, String[] coluns){
+        ArrayList result = new ArrayList();
+        
+        try {
+            Statement s = this.con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            while(r.next()){
+                for(String value: coluns){
+                    result.add(r.getString(value));
+                    System.out.println(r.getString(value));
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Erro" + e.getMessage());
+        }
     }
 
     public void desconectar(){
