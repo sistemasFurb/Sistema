@@ -19,12 +19,14 @@ public class Base {
     private HashMap<String,HashMap> parametros = new HashMap();
     Conexao conexao;
     BaseArea baseArea;
+    CalculoCustoObra calculoCustoObra;
     
     public Base(HashMap parametros, Conexao conexao) 
     {
         this.parametros = parametros;
         this.conexao = conexao;
-        this.baseArea = new BaseArea();
+        this.calculoCustoObra = new CalculoCustoObra();
+        this.baseArea = new BaseArea(this.calculoCustoObra);
     }
     
     /**
