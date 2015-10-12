@@ -78,5 +78,22 @@ public class Conexao {
             ex.printStackTrace();
         }
     }
+    
+    public int qtdeAreasCidade(int codigo){
+        try{
+            String sql = "SELECT COUNT(*) TOTAL FROM AREAVALORES WHERE idCidade = "+codigo;
+            Statement s = this.con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            if(r.next()){
+               return r.getInt("TOTAL");
+            }
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        
+        return 0;
+    }
 
 }
