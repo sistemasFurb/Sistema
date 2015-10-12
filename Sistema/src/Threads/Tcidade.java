@@ -20,10 +20,10 @@ import java.util.logging.Logger;
 public class Tcidade extends Thread{
     
     private Base base;
-    private HashMap filtrosCliente = new HashMap();
+    private int cidade;
     
-    public Tcidade(HashMap filtros, Base base) {
-        this.filtrosCliente = filtros;
+    public Tcidade(int cidade, Base base) {
+        this.cidade = cidade;
         this.base = base;
     }
 
