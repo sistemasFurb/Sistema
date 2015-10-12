@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import Classes.Base;
 import Conexao.Conexao;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -559,8 +560,8 @@ public class principal extends javax.swing.JFrame {
                cidades.add(2);
                cidades.add(3);
            }
-
-           hashh.put("Cidades", cidades);
+           
+           hashh.put("cidades", cidades);
             if(jpredio.isSelected()){
               hashh.put("tipoinvestimento", jpredio.getActionCommand());
               hashh.put("qtdandares",txtqtdandar.getText());
@@ -571,6 +572,9 @@ public class principal extends javax.swing.JFrame {
               hashh.put("qtdandares",txtqtdandar.getText());
               hashh.put("metragemandar", txtqtdaptoandar.getText());
            }
+            
+           Base base = new Base(hashh, this.con);
+           base.inicializaTCidade();
            
        }        
     }//GEN-LAST:event_jButton1ActionPerformed
