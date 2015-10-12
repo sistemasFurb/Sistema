@@ -91,6 +91,26 @@ public class Conexao {
             
         }catch(Exception ex){
             ex.printStackTrace();
+        }        
+        return 0;
+    }
+    
+    public double valorMQuadrado(int cidade, int area){
+        try{
+            String sql = "select sum(a.valorArea + b.valorMaterial) valorMquadrado " +
+                         "from areavalores a " +
+                         "join materialvalores b on b.idAreaValor = a.idAreaValores " +
+                         "where a.idcidade = "+cidade+" " +
+                         "and a.idArea = "+area+" "+
+                         "and b.idmaterial = 1 ";
+            Statement s = this.con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            if(r.next()){
+               return r.getDouble("valorMquadrado");
+            }            
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
         
         return 0;
