@@ -5,11 +5,18 @@
  */
 package Interface;
 
+import Conexao.Conexao;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Master
  */
 public class principal extends javax.swing.JFrame {
+    
+    private Conexao con;
 
     /**
      * Creates new form principal
@@ -24,6 +31,9 @@ public class principal extends javax.swing.JFrame {
         jLabel11.setVisible(false);
         jfiltro5.setVisible(false);
         jfiltro10.setVisible(false);
+        
+        jpredio.setActionCommand("1");
+        jcasa.setActionCommand("2");
     }
 
     /**
@@ -375,6 +385,11 @@ public class principal extends javax.swing.JFrame {
         jfiltro10.setText("10 resultados");
 
         jButton1.setText("Enviar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Limpar");
 
@@ -491,6 +506,74 @@ public class principal extends javax.swing.JFrame {
          
          //jPanel5.setVisible(true);
     }//GEN-LAST:event_jpredioActionPerformed
+    
+    
+    private boolean valida(){
+        if(jpredio.isSelected()){
+           if(txtqtdandar.getText().trim() == "") {
+              JOptionPane.showMessageDialog(null, "Quantidade de andar deve ser infomada!");
+              return false;
+           }
+           
+           if(txtqtdaptoandar.getText().trim() == ""){
+              JOptionPane.showMessageDialog(null, "Quantidade de apartamentos por andar deve ser infomada!");
+              return false; 
+           }
+           
+           if(txtmetragem.getText().trim() == ""){
+              JOptionPane.showMessageDialog(null, "Quantidade de apartamentos por andar deve ser infomada!");
+              return false; 
+           }
+           
+        }else{
+           if(txtqtdandar.getText().trim() == "") {
+              JOptionPane.showMessageDialog(null, "Quantidade de andar deve ser infomada!");
+              return false;
+           }
+           
+           if(txtqtdaptoandar.getText().trim() == ""){
+              JOptionPane.showMessageDialog(null, "Metragem por andar!");
+              return false; 
+           }
+        }
+        
+        return true;
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(valida()){
+           HashMap<String, Object> hashh = new HashMap<String, Object>();
+            
+           ArrayList cidades = new ArrayList();
+           if(checkblumenau.isSelected()){
+              cidades.add(1);
+           }
+           if(checkriodosul.isSelected()){
+              cidades.add(2);
+           }
+           if(checktimbo.isSelected()){
+              cidades.add(3);
+           }
+           if(!checkblumenau.isSelected() && !checkriodosul.isSelected() && !checktimbo.isSelected()){
+               cidades.add(1);
+               cidades.add(2);
+               cidades.add(3);
+           }
+
+           hashh.put("Cidades", cidades);
+            if(jpredio.isSelected()){
+              hashh.put("tipoinvestimento", jpredio.getActionCommand());
+              hashh.put("qtdandares",txtqtdandar.getText());
+              hashh.put("qtdaptoandar", txtqtdaptoandar.getText());
+              hashh.put("metragemapto", txtmetragem.getText());               
+           }else if(jcasa.isSelected()){
+              hashh.put("tipoinvestimento", jcasa.getActionCommand());
+              hashh.put("qtdandares",txtqtdandar.getText());
+              hashh.put("metragemandar", txtqtdaptoandar.getText());
+           }
+           
+       }        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
