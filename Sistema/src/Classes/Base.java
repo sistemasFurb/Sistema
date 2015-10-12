@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author matheus
  */
 public class Base {
-    private HashMap<String,HashMap> parametros = new HashMap();
+    private HashMap<String, Object> parametros = new HashMap();
     Conexao conexao;
     BaseArea baseArea;
     CalculoCustoObra calculoCustoObra;
@@ -35,11 +35,12 @@ public class Base {
     public void inicializaTCidade()
     {
         //Verifica quantidade de cidades selecionadas pelo usuário
-        int quantidadeCidades = this.getQtdCidades(this.parametros.get("cidade"));
+        ArrayList cidades = (ArrayList) this.parametros.get("cidades");
+        int quantidadeCidades = this.getQtdCidades(cidades);
         
         //Chama threads para cada cidade selecionada
         for(int i = 0; i < quantidadeCidades; i++){
-            Tcidade threadCidade = new Tcidade((HashMap)this.parametros.get("cidade").get(i), this);
+            Tcidade threadCidade = new Tcidade((Integer)cidades.get(i), this);
             threadCidade.start();
         }
     }
@@ -47,7 +48,7 @@ public class Base {
     /**
      * Verifica quantidade de cidades selecionadas pelo usuário 
      */
-    private int getQtdCidades(HashMap parametroCidade)
+    private int getQtdCidades(ArrayList parametroCidade)
     {
         return parametroCidade.size();
     }
