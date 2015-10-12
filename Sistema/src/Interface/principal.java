@@ -18,7 +18,12 @@ public class principal extends javax.swing.JFrame {
         initComponents();
         
         jPanel4.setVisible(false);
-        
+        jPanel5.setVisible(false);
+        jPanel6.setVisible(false);
+        jPanel7.setVisible(false);
+        jLabel11.setVisible(false);
+        jfiltro5.setVisible(false);
+        jfiltro10.setVisible(false);
     }
 
     /**
@@ -470,7 +475,7 @@ public class principal extends javax.swing.JFrame {
          checkacademia.setSelected(false);
          checkplayground.setSelected(false);
          
-         jPanel5.setVisible(false);
+         //jPanel5.setVisible(false);
          
     }//GEN-LAST:event_jcasaActionPerformed
 
@@ -484,7 +489,7 @@ public class principal extends javax.swing.JFrame {
          checkacademia.setVisible(true);
          checkplayground.setVisible(true);
          
-         jPanel5.setVisible(true);
+         //jPanel5.setVisible(true);
     }//GEN-LAST:event_jpredioActionPerformed
 
     /**
