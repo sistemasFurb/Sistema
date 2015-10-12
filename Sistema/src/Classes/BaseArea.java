@@ -16,7 +16,7 @@ public class BaseArea {
     public BaseArea(CalculoCustoObra calculoCusto) {
         this.calculoCusto = calculoCusto;
     }
-    
+
     public synchronized void calculaCustoObra(){
         
     }

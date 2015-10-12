@@ -3,18 +3,29 @@
  */
 package Classes;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  *
  * @author matheus
  */
 public class CalculoCustoObra {
+
+    private ReentrantLock lock = new ReentrantLock();
+    private Condition calculoMetroQuadro = lock.newCondition();
+    private Condition calculoMaoObra = lock.newCondition();
+    
+    public CalculoCustoObra() {
+    }
+    
     
     /**
      * Executa calculo metro quadrado
      */
     public void calculoMetroQuadrado()
     {
-        
+        calculoMetroQuadro.signalAll();
     }
     
     /**
@@ -22,14 +33,17 @@ public class CalculoCustoObra {
      */
     public void calculaMaoObra()
     {
-        
+        calculoMaoObra.signalAll();
     }
     
     /**
      * executa calculo em cima do tipo de investimento
      */
-    public void calculaTipoInvestimento()
+    public void calculaTipoInvestimento() throws InterruptedException
     {
+        calculoMaoObra.await();
+        calculoMetroQuadro.await();
+        
         
     }
     
