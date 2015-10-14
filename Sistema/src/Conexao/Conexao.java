@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -87,6 +88,48 @@ public class Conexao {
             
             if(r.next()){
                return r.getInt("TOTAL");
+            }
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }        
+        return 0;
+    }
+    
+    public HashMap getAreasCidade(int codigoCidade){
+        HashMap<Integer, ArrayList> response  = new HashMap();
+        try{
+            String sql = "SELECT dsArea as area, valorArea as valor FROM AREAVALORES JOIN AREAS ON AREAS.idArea = AREAVALORES.idArea WHERE AREAVALORES.idCidade = "+codigoCidade;
+            Statement s = this.con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            int indexResponse = 0;
+            while(r.next()){
+               int indexPreResponse = 0; 
+               ArrayList preResponse = new ArrayList();
+               preResponse.add(indexPreResponse, r.getString("area"));
+               indexPreResponse++;
+               preResponse.add(indexPreResponse, r.getInt("valor"));
+               response.put(indexResponse, preResponse);
+               indexResponse++;
+            }
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }        
+        return response;
+    }
+    
+    
+    public int getValorMaoObraCidade(int codigoCidade){
+        try{
+            String sql = "SELECT valorMaoObra as valor FROM maoobravalores WHERE idCidade = "+codigoCidade;
+            Statement s = this.con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            int indexResponse = 0;
+            if(r.next()){
+               return r.getInt("valor");
             }
             
         }catch(Exception ex){

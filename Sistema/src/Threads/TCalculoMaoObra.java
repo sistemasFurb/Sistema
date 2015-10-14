@@ -11,21 +11,22 @@ import Classes.BaseArea;
  *
  * @author matheus
  */
-public class TCalculoMetroQuadrado extends Thread{
+public class TCalculoMaoObra extends Thread{
     
     private BaseArea baseArea;
-    private int valorCalculoArea = 0;
+    private int valorMaoObra = 0;
 
-    public TCalculoMetroQuadrado(BaseArea baseArea, int valorCalculoArea) {
+    public TCalculoMaoObra(BaseArea baseArea, int valorMaoObra) {
         this.baseArea = baseArea;
-        this.valorCalculoArea = valorCalculoArea;
+        this.valorMaoObra = valorMaoObra;
     }
 
     public void run() {
         try {
-            this.baseArea.calculoMetroQuadrado(valorCalculoArea);
+            this.baseArea.calculaMaoObra(this.valorMaoObra);
         } catch (Exception e) {
             System.out.println("");
         }
     }
+    
 }

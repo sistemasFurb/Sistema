@@ -5,21 +5,25 @@
  */
 package Threads;
 
-import Classes.Base;
 import Classes.BaseArea;
 
 /**
  *
  * @author matheus
  */
-public class TArea extends Thread{
-    BaseArea baseArea;
+public class TCalculoTipoInvestimento extends Thread{
 
-    public TArea(BaseArea baseArea) {
+    private BaseArea baseArea;
+
+    public TCalculoTipoInvestimento(BaseArea baseArea) {
         this.baseArea = baseArea;
     }
 
     public void run() {
-        baseArea.calculaCustoObra();
+        try {
+            this.baseArea.calculaTipoInvestimento();
+        } catch (Exception e) {
+            System.out.println("");
+        }
     }
 }

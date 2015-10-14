@@ -6,27 +6,29 @@
 package Classes;
 
 import Conexao.Conexao;
-import Threads.TArea;
+import Threads.TCalculoMaoObra;
+import Threads.TCalculoMetroQuadrado;
+import Threads.TCalculoTipoInvestimento;
 import Threads.Tcidade;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Semaphore;
 
 /**
  *
  * @author matheus
  */
 public class Base {
-    private HashMap<String, Object> parametros = new HashMap();
+    private HashMap<String, HashMap> parametros = new HashMap();
     Conexao conexao;
     BaseArea baseArea;
-    CalculoCustoObra calculoCustoObra;
+    private static Semaphore semaforo = new Semaphore(1, true);
     
     public Base(HashMap parametros, Conexao conexao) 
     {
         this.parametros = parametros;
         this.conexao = conexao;
-        this.calculoCustoObra = new CalculoCustoObra();
-        this.baseArea = new BaseArea(this.calculoCustoObra);
+        this.baseArea = new BaseArea(this.parametros, this.conexao);
     }
     
     /**
@@ -35,12 +37,13 @@ public class Base {
     public void inicializaTCidade()
     {
         //Verifica quantidade de cidades selecionadas pelo usuário
-        ArrayList cidades = (ArrayList) this.parametros.get("cidades");
+        HashMap cidades = this.parametros.get("cidades");
         int quantidadeCidades = this.getQtdCidades(cidades);
         
         //Chama threads para cada cidade selecionada
         for(int i = 0; i < quantidadeCidades; i++){
-            Tcidade threadCidade = new Tcidade((Integer)cidades.get(i), this);
+            int codigoCidade = (Integer)cidades.get(i);
+            Tcidade threadCidade = new Tcidade(codigoCidade, this);
             threadCidade.start();
         }
     }
@@ -48,7 +51,7 @@ public class Base {
     /**
      * Verifica quantidade de cidades selecionadas pelo usuário 
      */
-    private int getQtdCidades(ArrayList parametroCidade)
+    private int getQtdCidades(HashMap parametroCidade)
     {
         return parametroCidade.size();
     }
@@ -56,24 +59,27 @@ public class Base {
     /**
      * Verifica quantidade de areas da cidade e inicializa threads
      */
-    public synchronized void inicializaTArea()
+    public void inicializaCalculoArea(int codigoCidade) throws InterruptedException
     {
-        int quantidadeAreaCidade = this.getAreasCidade();
+        HashMap areasCidade = conexao.getAreasCidade(codigoCidade);
+        int valorMaoObraCidade = conexao.getValorMaoObraCidade(codigoCidade);
+        int quantidadeAreaCidade = areasCidade.size();
         
         for(int i = 0;i < quantidadeAreaCidade; i++){
-            TArea threadArea = new TArea(this.baseArea);
-            threadArea.start();
+            semaforo.acquire();
+            ArrayList area = (ArrayList)areasCidade.get(i);
+            TCalculoMetroQuadrado calculoMetro2 = new TCalculoMetroQuadrado(this.baseArea, (int)area.get(1));
+            calculoMetro2.start();
+            TCalculoMaoObra calculoMaoObra = new TCalculoMaoObra(this.baseArea, valorMaoObraCidade);
+            calculoMaoObra.start();
+            TCalculoTipoInvestimento calculoTipoInvestimento = new TCalculoTipoInvestimento(this.baseArea);
+            calculoTipoInvestimento.start();
+            semaforo.release();
         }
     }
-    
-    /**
-     * Retorna quantidade de areas da cidade
-     */
-    public int getAreasCidade()
-    {
-        //Retorna quantidade de areas da cidade
-        this.conexao.select("",null);
-        return 0;
-        
+
+    public Conexao getConexao() {
+        return conexao;
     }
+    
 }

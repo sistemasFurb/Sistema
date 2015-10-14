@@ -6,7 +6,6 @@
 package Threads;
 
 import Classes.Base;
-import Classes.InvestimentoCidade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Semaphore;
@@ -28,7 +27,11 @@ public class Tcidade extends Thread{
     }
 
     public void run() {
-        base.inicializaTArea();
+        try {
+            base.inicializaCalculoArea(cidade);
+        } catch (InterruptedException e) {
+            System.out.println("Erro ao iniciar calculo area "+e);
+        }
     }
     
 }
