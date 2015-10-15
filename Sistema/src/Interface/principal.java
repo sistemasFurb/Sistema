@@ -541,42 +541,55 @@ public class principal extends javax.swing.JFrame {
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(valida()){
-           HashMap<String, Object> hashh = new HashMap<String, Object>();
-            
-           ArrayList cidades = new ArrayList();
+        if(valida()){           
+           HashMap<String, HashMap> filtros = new HashMap();
+           HashMap<Integer, Integer> filtrosCidade = new HashMap();
+           HashMap<Integer, Integer> filtrosAndares = new HashMap();
+           HashMap<Integer, Float> filtrosMetragem = new HashMap();
+           HashMap<Integer, Integer> filtrosApAndar = new HashMap();
+           HashMap<Integer, Integer> filtrosTempo = new HashMap();
+           
+           int position = 0;
            if(checkblumenau.isSelected()){
-              cidades.add(1);
+              filtrosCidade.put(position, 1);
+              position++;
            }
            if(checkriodosul.isSelected()){
-              cidades.add(2);
+              filtrosCidade.put(position, 2);
+              position++;
            }
            if(checktimbo.isSelected()){
-              cidades.add(3);
+              filtrosCidade.put(position,3);
            }
            if(!checkblumenau.isSelected() && !checkriodosul.isSelected() && !checktimbo.isSelected()){
-               cidades.add(1);
-               cidades.add(2);
-               cidades.add(3);
+               filtrosCidade.put(0,1);
+               filtrosCidade.put(1,2);
+               filtrosCidade.put(2,3);
            }
            
-           hashh.put("cidades", cidades);
-            if(jpredio.isSelected()){
-              hashh.put("tipoinvestimento", jpredio.getActionCommand());
-              hashh.put("qtdandares",txtqtdandar.getText());
-              hashh.put("qtdaptoandar", txtqtdaptoandar.getText());
-              hashh.put("metragemapto", txtmetragem.getText());               
+           HashMap<Integer, Integer> tipoObra = new HashMap<>();
+           
+           if(jpredio.isSelected()){
+              tipoObra.put(0, 1);
            }else if(jcasa.isSelected()){
-              hashh.put("tipoinvestimento", jcasa.getActionCommand());
-              hashh.put("qtdandares",txtqtdandar.getText());
-              hashh.put("metragemandar", txtqtdaptoandar.getText());
+              tipoObra.put(0, 2);
            }
            
-           hashh.put("tempoobra", jtempoobra.getText());
+           filtrosAndares.put(0, Integer.parseInt(txtqtdandar.getText()));
+           filtrosMetragem.put(0, Float.parseFloat(txtmetragem.getText()));
+           filtrosApAndar.put(0, Integer.parseInt(txtqtdaptoandar.getText()));
+           filtrosTempo.put(0, Integer.parseInt(jtempoobra.getText()));
            
-           Base base = new Base(hashh, this.con);
-           base.inicializaTCidade();
-           
+           filtros.put("tipoobra",tipoObra);
+           filtros.put("cidades", filtrosCidade);
+           filtros.put("andares", filtrosAndares);
+           filtros.put("metragem", filtrosMetragem);
+           filtros.put("apAndar", filtrosApAndar);
+           filtros.put("tempoobra", filtrosTempo);
+
+           Base base = new Base(filtros, this.con);
+
+           base.inicializaTCidade();           
        }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
