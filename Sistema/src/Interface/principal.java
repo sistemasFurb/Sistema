@@ -588,7 +588,7 @@ public class principal extends javax.swing.JFrame {
            filtros.put("andares", filtrosAndares);
            filtros.put("metragem", filtrosMetragem);
            filtros.put("apAndar", filtrosApAndar);
-           filtros.put("tempoobra", filtrosTempo);
+           filtros.put("tempo", filtrosTempo);
 
            Base base = new Base(filtros, this.con);
 
