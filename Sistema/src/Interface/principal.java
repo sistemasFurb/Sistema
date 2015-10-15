@@ -34,6 +34,9 @@ public class principal extends javax.swing.JFrame {
         
         jpredio.setActionCommand("1");
         jcasa.setActionCommand("2");
+        
+        this.con = new Conexao();
+        this.con.conectar();
     }
 
     /**
@@ -545,7 +548,7 @@ public class principal extends javax.swing.JFrame {
            HashMap<String, HashMap> filtros = new HashMap();
            HashMap<Integer, Integer> filtrosCidade = new HashMap();
            HashMap<Integer, Integer> filtrosAndares = new HashMap();
-           HashMap<Integer, Float> filtrosMetragem = new HashMap();
+           HashMap<Integer, Integer> filtrosMetragem = new HashMap();
            HashMap<Integer, Integer> filtrosApAndar = new HashMap();
            HashMap<Integer, Integer> filtrosTempo = new HashMap();
            
@@ -576,7 +579,7 @@ public class principal extends javax.swing.JFrame {
            }
            
            filtrosAndares.put(0, Integer.parseInt(txtqtdandar.getText()));
-           filtrosMetragem.put(0, Float.parseFloat(txtmetragem.getText()));
+           filtrosMetragem.put(0, Integer.parseInt(txtmetragem.getText()));
            filtrosApAndar.put(0, Integer.parseInt(txtqtdaptoandar.getText()));
            filtrosTempo.put(0, Integer.parseInt(jtempoobra.getText()));
            
