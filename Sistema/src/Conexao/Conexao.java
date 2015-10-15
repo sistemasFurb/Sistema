@@ -120,7 +120,6 @@ public class Conexao {
         return response;
     }
     
-    
     public int getValorMaoObraCidade(int codigoCidade){
         try{
             String sql = "SELECT valorMaoObra as valor FROM maoobravalores WHERE idCidade = "+codigoCidade;
@@ -156,6 +155,26 @@ public class Conexao {
             ex.printStackTrace();
         }
         
+        return 0;
+    }
+    
+    public double valorMediaHistoricaConstrucao(int cidade, int area){
+        try{
+            String sql = "select AVG(vlconstrucao) media " +
+                         "from imovelhistorico a " +
+                         "inner join imovelarea b on (b.idimovelarea = a.idimovelareahistorico) " +
+                         "inner join areavalores c on (c.idareavalores = b.idareavalores) "+
+                         "where c.idcidade = "+cidade+" " +
+                         "and c.idArea = "+area+"";
+            Statement s = this.con.createStatement();
+            ResultSet r = s.executeQuery(sql);
+            
+            if(r.next()){
+               return r.getDouble("media");
+            } 
+        }catch(Exception ex){
+             ex.printStackTrace();
+        }
         return 0;
     }
 
